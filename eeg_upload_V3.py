@@ -1,16 +1,14 @@
 #!\\usr\\bin\\python\\env
-
 import os.path
 import os
 import sys
 import xnatutils
-import Tkinter
-import tkFileDialog
+import tkinter.filedialog
 from tkinter import messagebox
 import shutil
 from xnat.exceptions import XNATResponseError
 
-root = Tkinter.Tk()
+root = tkinter.Tk()
 root.withdraw() #use to hide tkinter window
 
 def show_error_and_quit(message):
@@ -18,36 +16,36 @@ def show_error_and_quit(message):
     sys.exit()
 
 currdir = os.getcwd()
-base_path =  tkFileDialog.askdirectory(parent=root, initialdir=currdir, title='Please select directory where data is saved')
+base_path =  tkinter.filedialog.askdirectory(parent=root, initialdir=currdir, title='Please select directory where data is saved')
 
 if len(base_path) > 0:
-    print "You chose %s" % base_path
+    print("You chose %s" % base_path)
 
 # Set unique variables (researcherName, subID, studyID, xnatID, xnatSESS)
-#researcherName= raw_input('Reseacher Name (as written in PROJECTS folder): ')
+#researcherName= input('Reseacher Name (as written in PROJECTS folder): ')
 
-hdd_backup= raw_input('Do you also backup your data to a Hard drive? (y/n): ')
+hdd_backup= input('Do you also backup your data to a Hard drive? (y/n): ')
 
 if hdd_backup == 'y':
-        root = Tkinter.Tk()
+        root = tkinter.Tk()
         root.withdraw() #use to hide tkinter window
 
         currdir = os.getcwd()
-        hdd_path = tkFileDialog.askdirectory(parent=root, initialdir=currdir, title='Please select backup hard drive')
+        hdd_path = tkinter.filedialog.askdirectory(parent=root, initialdir=currdir, title='Please select backup hard drive')
         if len(hdd_path) > 0:
-            print "You chose %s" % hdd_path
+            print("You chose %s" % hdd_path)
     
 
 
-studyID= raw_input('Study prefix (eg.HUB): ')
+studyID= input('Study prefix (eg.HUB): ')
 
-dataType= raw_input('Data Type (eg.Cognitive_data or TMS_EEG_data): ')
+dataType= input('Data Type (eg.Cognitive_data or TMS_EEG_data): ')
 
-subID= raw_input('Subject ID: ').split()
+subID= input('Subject ID: ').split()
 
-xnatID= raw_input('MBI XNAT project number (eg.MRH001): ')
+xnatID= input('MBI XNAT project number (eg.MRH001): ')
 
-xnatSESS= raw_input('Session number (eg.EEG01): ')
+xnatSESS= input('Session number (eg.EEG01): ')
 
 # Sets xnatutils to never save password
 # Keep on always when on shared computer
@@ -73,7 +71,9 @@ for ID in subID:
     try:
         os.chdir(path)
     except Exception:
-        show_error_and_quit("You have entered the wrong study ID ('{}') or ID ('{}') or the directory doesn't exist".format(studyID, dataType, ID))
+        show_error_and_quit(
+            "You have entered the wrong study ID ('{}'), datatype ('{}') or ID ('{}') or the directory doesn't exist"
+            .format(studyID, dataType, ID))
 
     filenames = os.listdir('.')
 
@@ -84,14 +84,6 @@ for ID in subID:
         if(r != f):
 
             os.rename(f, r)
-
-    
-    
-    for f in filenames:
-
-        if f.startswith(ID):
-
-            os.rename(f, studyID + f)
 
 
     source = os.listdir(path)
@@ -120,9 +112,9 @@ for ID in subID:
 
             os.makedirs(hdd_full_path)
 
-    	for files in source:
+        for files in source:
 
-        	shutil.copy2(files, hdd_full_path)
+            shutil.copy2(files, hdd_full_path)
 
 
 # Loop over IDs and if file begins with ID, place prefix (studyID) at the start
@@ -163,13 +155,15 @@ try:
 
             fnames = [os.path.join(path, f)
 
-                    for f in all_fnames if f.startswith(base)]
+                      for f in all_fnames if os.path.splitext(f)[0] == base]
+
+            scan_name = '_'.join(base.split('_')[1:])
             try:
-                xnatutils.put(
+                xnatutils.put.put(
 
                     fullsessID,
 
-                    base,
+                    scan_name,
 
                     *fnames,
 
@@ -179,7 +173,7 @@ try:
 
                     connection=mbi_xnat)
             except XNATResponseError as e:
-                if '(status 409)' in e.message:
+                if '(status 409)' in str(e):
                     print("'{}' scan already exists for '{}' session, skipping".format(base, fullsessID))
                 else:
                     raise
