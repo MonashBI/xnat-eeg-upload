@@ -1,0 +1,1 @@
+python.exe C:\\Users\mbi\Desktop\code\eeg_upload_V3.py
