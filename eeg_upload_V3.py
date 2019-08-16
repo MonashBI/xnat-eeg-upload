@@ -2,7 +2,8 @@
 import os.path
 import os
 import sys
-import xnatutils
+from xnatutils.put import put as xnat_put
+from xnatutils.base import connect as xnat_connect
 import tkinter.filedialog
 from tkinter import messagebox
 import shutil
@@ -49,7 +50,7 @@ xnatSESS= input('Session number (eg.EEG01): ')
 
 # Sets xnatutils to never save password
 # Keep on always when on shared computer
-mbi_xnat = xnatutils.connect(use_netrc=False)
+mbi_xnat = xnat_connect(use_netrc=False)
 
 
 # Sets path. Change if using script on personal computer
@@ -159,7 +160,7 @@ try:
 
             scan_name = '_'.join(base.split('_')[1:])
             try:
-                xnatutils.put.put(
+                xnat_put(
 
                     fullsessID,
 
@@ -178,7 +179,8 @@ try:
                 else:
                     raise
 
-except Exception:
-        show_error_and_quit("You have entered an incorrect XNAT ID ('{}') or XNAT session ('{}'), the XNAT project ID doesn't exist or there is already data uploaded with that ID".format(xnatID, xnatSESS))
+except Exception as e:
+    print(e)
+    show_error_and_quit("You have entered an incorrect XNAT ID ('{}') or XNAT session ('{}'), the XNAT project ID doesn't exist or there is already data uploaded with that ID".format(xnatID, xnatSESS))
 
 print("FINISHED")
