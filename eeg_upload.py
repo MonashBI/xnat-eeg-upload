@@ -109,11 +109,7 @@ for ID in subID:
 
         hdd_full_path = os.path.join(hdd_path, studyID, ID)
 
-        if not os.path.isdir(hdd_full_path):
-
-            os.makedirs(hdd_full_path)
-			
-    if hdd_backup == 'y':
+        os.makedirs(hdd_full_path, exist_ok=True)
 	
         for files in source:
 
@@ -161,6 +157,10 @@ try:
                       for f in all_fnames if os.path.splitext(f)[0] == base]
 
             scan_name = '_'.join(base.split('_')[1:])
+
+            if not scan_name:
+                scan_name = base
+
             try:
                 xnat_put(
 
