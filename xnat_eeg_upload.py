@@ -54,7 +54,7 @@ def eeg_upload():
 
     # Sets xnatutils to never save password
     # Keep on always when on shared computer
-    mbi_xnat = xnat_connect(use_netrc=False)
+    mbi_xnat = xnat_connect()
 
     # Sets path. Change if using script on personal computer
     # base_path = '/Volumes/RAW_DATA/'
