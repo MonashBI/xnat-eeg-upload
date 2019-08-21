@@ -1,7 +1,7 @@
 XNAT EEG Upload
 ===============
 
-A simple interactive script for upload EEG data to XNAT
+A simple interactive script for uploading EEG/COG data to XNAT
 
 
 Installation
