@@ -21,6 +21,8 @@ These Python versions should come with ``pip3`` already installed but if you don
 have it installed, it can be downloading https://bootstrap.pypa.io/get-pip.py and
 running `python3 get-pip.py`.
 
-Once pip3 is installed you can install the EEG upload script with::
+Once pip3 is installed you can install the EEG upload by cloning this repository
+with `git` (you can install git with one of the aforementioned package managers)
+or downloading and unzipping somewhere sensible on your computer, then run::
 
-    pip3 install xnat_eeg_upload
+    pip3 install -e <where-you-saved-the-cloned/downloaded-directory>
