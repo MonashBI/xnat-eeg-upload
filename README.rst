@@ -26,3 +26,14 @@ with `git` (you can install git with one of the aforementioned package managers)
 or downloading and unzipping somewhere sensible on your computer, then run::
 
     pip3 install -e <where-you-saved-the-cloned/downloaded-directory>
+
+
+Running
+-------
+
+You run the script with the command::
+
+    xnat-eeg-upload
+    
+(NB: if you are on Linux and installed without 'sudo' you will probably need to add $HOME/.local/bin
+to your PATH variable)
