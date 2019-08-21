@@ -107,12 +107,14 @@ for ID in subID:
 
     if hdd_backup == 'y':
 
-        hdd_full_path = os.path.join(hdd_path, studyID, dataType, ID)
+        hdd_full_path = os.path.join(hdd_path, studyID, ID)
 
         if not os.path.isdir(hdd_full_path):
 
             os.makedirs(hdd_full_path)
-
+			
+    if hdd_backup == 'y':
+	
         for files in source:
 
             shutil.copy2(files, hdd_full_path)
