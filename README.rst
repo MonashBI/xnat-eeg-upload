@@ -7,7 +7,7 @@ A simple interactive script for uploading EEG/COG data to XNAT
 Installation
 ------------
 
-XNAT EEG Upload requires Python 3 with the ``pip3`` installed.
+XNAT EEG Upload requires Python 3 with ``pip3`` installed.
 
 How you install Python 3 will depend on the system you are using and whether
 there is another Python 3 already installed it on it or not. If Python 3 isn't
