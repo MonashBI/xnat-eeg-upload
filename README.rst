@@ -18,7 +18,7 @@ installed I would strongly recommend using a package manager such as
 * Apt/Yum/Apk/etc... - Linux
 
 These Python versions should come with ``pip3`` already installed but if you don't
-have it installed, it can be downloading https://bootstrap.pypa.io/get-pip.py and
+have it installed, it can be installed by downloading https://bootstrap.pypa.io/get-pip.py and
 running `python3 get-pip.py`.
 
 Once pip3 is installed you can install the EEG upload by cloning this repository
